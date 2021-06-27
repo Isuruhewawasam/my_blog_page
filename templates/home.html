@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    <title> My Home</title>
+    {% endblock title %}
+</head>
+
+{% block body %}
+<div class="container">
+
+    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 fst-italic">Future Of The NEWS</h1>
+        <div class="p-4 mb-3 bg-dark rounded">
+        <h4 class="fst-italic">About</h4>
+        <p class="mb-0" align="left" >Saw you downtown singing the Blues. Watch you circle the drain. Why don't you let me stop by? Heavy is the head that <em>wears the crown</em>. Yes, we make angels cry, raining down on earth from up above.</p>
+      </div>
+
+    </div>
+  </div>
+
+
+{% for life in object_list %}
+     <div class="row mb-3">
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary" _msthash="1544582" _msttexthash="232999" style="direction: ltr; text-align: left;">{{life.title}}</strong>
+          <h3 class="mb-0" _msthash="1219075" _msttexthash="456274" style="direction: ltr; text-align: left;">{{life.category}}</h3>
+          <div class="mb-1 text-muted" _msthash="1322997" _msttexthash="134225" style="direction: ltr; text-align: left;">{{life.post_date}}  :  {{life.author}}</div>
+          <p class="card-text mb-auto" _msthash="1193244" _msttexthash="5290363" style="direction: ltr; text-align: left;"> {{life.body|slice:":200"|safe}}</p>
+          <a href="{% url 'post_details' life.pk %}" class="stretched-link" _msthash="1185080" _msttexthash="83122" style="direction: ltr; text-align: left;">Read on.</a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+{% endfor %}
+
+
+</div>
+
+{% endblock body %}
+
+</html>

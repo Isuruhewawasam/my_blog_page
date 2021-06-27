@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>{{post.title}}</title>
+
+{% endblock title %}
+
+{% block body %}
+<div class="container">
+<ul>
+<h3 align="center">{{post.title}}</h3>
+    {% if post.header_image %}
+    <img src="{{post.header_image.url}}">
+    {% endif %}
+</br>
+    </br>
+    </br>
+ {{object.author.first_name}}
+ {{post.author.last_name}}<br/>
+ {{post.author.username}}<br/>
+ {{post.author.town}}
+    {{post.post_date}}<br/>
+<li> {{post.body|safe}}</li>
+
+{% if user.is_authenticated %}
+     {% if user.id == post.author.id %}
+
+             <a href="{% url 'update_post' post.pk %}"> <small>Edit</small> </a> || <a href="{% url 'delete_post' post.pk %}"> <small>Delete</small> </a>
+    {% endif %}
+ {% endif %}
+
+    </ul>
+<a href="{% url 'home' %}"class="btn btn-dark">Back</button></a>
+
+
+
+<br>
+
+<br/>
+
+
+<form action="{% url 'like_post' post.pk%}" method="POST">
+    {% csrf_token%}
+    {% if user.is_authenticated %}
+    {% if liked %}
+        <button type="submit" class="btn btn-danger" value="{{post.id}}" name="post_id">unlike</button>
+    {% else %}
+        <button type="submit" class="btn btn-success" value="{{post.id}}" name="post_id">like</button>
+
+    {% endif %}
+    {% else %}
+        <a class="nav-link active" aria-current="page" href="{% url 'login' %}"><small>please login to like</small> </a>
+        
+    {% endif %}
+     {{ total_likes }} - Likes
+</form>
+{% endblock body %}
+     </div>
